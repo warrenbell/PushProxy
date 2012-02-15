@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<filter>
+		<filter-name>ProxyFilter</filter-name>
+		<filter-class>com.warren.pushproxy.ProxyFilter</filter-class>
+		<init-param>
+			<param-name>paramName</param-name>
+			<param-value>value</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>ProxyFilter</filter-name>
+		<servlet-name>PushProxy</servlet-name>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>PushProxy</servlet-name>
+		<servlet-class>com.warren.pushproxy.PushProxy</servlet-class>
+		<init-param>
+			<!-- This is the host that the proxy will forward to, use the www prefix for domain names-->
+			<param-name>targetHost</param-name>
+			<param-value>127.0.0.1</param-value>
+		</init-param>
+		<init-param>
+		    <!-- This is the port of the host that the proxy will forward to -->
+			<param-name>targetPort</param-name>
+			<param-value>8080</param-value>
+		</init-param>
+		<init-param>
+		    <!-- This is the context path of the host that the proxy will forward to -->
+			<param-name>targetContextPath</param-name>
+			<param-value>/pushadmin</param-value>
+		</init-param>
+		<init-param>
+		    <!-- This is the maximum size in bytes that any file uploaded to the proxy can be. 1024 would be one KB. The default is 5 MB if left blank -->
+			<param-name>maxFileUploadSize</param-name>
+			<param-value></param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PushProxy</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+</web-app>
